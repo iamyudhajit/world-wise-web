@@ -10,9 +10,15 @@ const formatDate = (date) =>
     weekday: "long",
   }).format(new Date(date));
 
-const CityItem = ({city}) => {
-    const {currentCity} = useCities();
-    const {cityName , emoji, date, id, position} = city;
+const CityItem = ({ city }) => {
+  function handleClick(e) {
+    e.preventDefault();
+    console.log(e);
+    deleteCity(id);
+  }
+
+  const { currentCity, deleteCity } = useCities();
+  const { cityName, emoji, date, id, position } = city;
 
   return (
     <li>
@@ -25,10 +31,12 @@ const CityItem = ({city}) => {
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
         <time className={styles.date}>{formatDate(date)}</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <button onClick={handleClick} className={styles.deleteBtn}>
+          &times;
+        </button>
       </Link>
     </li>
   );
-}
+};
 
-export default CityItem
+export default CityItem;
